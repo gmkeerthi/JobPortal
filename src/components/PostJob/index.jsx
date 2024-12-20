@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import Navbar from "../Navbar";
 import "./index.css";
 import { useNavigate } from "react-router-dom";
@@ -13,7 +12,8 @@ const PostJob = () => {
   const [role, setRole] = useState("");
   const [location, setLocation] = useState("");
 
-const navigate=useNavigate();
+  const navigate = useNavigate();
+
   const getBase64 = (file) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -22,6 +22,7 @@ const navigate=useNavigate();
       reader.readAsDataURL(file);
     });
   };
+
   const handleImg = (e) => {
     const file = e.target.files[0];
     getBase64(file).then((base64) => {
@@ -31,15 +32,6 @@ const navigate=useNavigate();
   };
 
   const handleSubmitButton = (e) => {
-      const jobPost = {
-        company,
-        position,
-        salary,
-        experience,
-        role,
-        location,
-        logo
-      };
     e.preventDefault();
     if (company === "") {
       window.alert("Enter name");
@@ -49,19 +41,31 @@ const navigate=useNavigate();
       window.alert("Enter Experience");
     } else if (salary === "") window.alert("Enter Salary");
     else {
+      const jobPost = {
+        id: new Date().getTime().toString(), // Add a unique ID
+        company,
+        position,
+        salary,
+        experience,
+        role,
+        location,
+        logo,
+      };
+
       let savedItem = [];
       if (localStorage.getItem("item")) {
         savedItem = JSON.parse(localStorage.getItem("item"));
       }
-      localStorage.setItem("item", JSON.stringify([...savedItem, {jobPost}]));
+
+      localStorage.setItem("item", JSON.stringify([...savedItem, jobPost]));
       window.alert("Form Submitted Successfully");
       navigate("/Jobs");
     }
   };
+
   return (
     <div>
       <Navbar />
-
       <div className="job-background">
         <div className="title">
           <h2>Post a Job</h2>
@@ -145,10 +149,7 @@ const navigate=useNavigate();
             />
           </div>
 
-          <div
-            className="form-group"
-            onChange={(e) => setExperience(e.target.value)}
-          >
+          <div className="form-group" onChange={(e) => setExperience(e.target.value)}>
             <label>Experience </label>
             <label>
               <input
