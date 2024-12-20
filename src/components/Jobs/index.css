@@ -118,3 +118,37 @@
   align-items: center;
   gap: 30px;
 }
+
+.save-button {
+  font-size: 22px;
+  cursor: pointer;
+  color: #999; /* Default color for unsaved state */
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.save-button:hover {
+  color: #f00; /* Highlighted color when hovering */
+  transform: scale(1.2); /* Slight enlargement on hover */
+}
+
+.save-button.saved {
+  color: #ff0000; /* Color for saved state */
+  transition: color 0.3s ease;
+}
+
+.save-job-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.save-job-btn:focus {
+  outline: none;
+}
+
+.save-job-btn:hover .save-button {
+  transform: scale(1.2);
+}
